@@ -68,7 +68,7 @@ public:
     void lock() {
         atomic_backoff backoff;
         call_itt_notify(prepare, this);
-        while (m_flag.load(std::memory_order_consume)
+        while (m_flag.load(std::memory_order_relaxed)
                || m_flag.exchange(true)) backoff.pause();
         call_itt_notify(acquired, this);
     }
